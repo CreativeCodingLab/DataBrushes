@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.button-group button {
+  display: inline-block;
+}
+
+p {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+canvas,
+svg {
+  position: absolute;
+}
+
+</style>
+<link rel="shortcut icon" href="">   <!--This removes a favicon error-->
+
+<div class="button-group">
+<input type="file" id="selectImage" onchange="uploadImage()"></input>
+<button type="button" id="clearImage" onclick="clearImage()">Clear Image</button>
+<button type="button" id="clearBrush" onclick="clearBrush()">Clear Brush</button>
+<button type="button" id="applyBrush" onclick="applyBrush()">Apply Brush</button>
+</div>
+
+<div class="button-group" id="brushes">
+<p>Select Brush:</p>
+</div>
+
+<br>
+
+<!-- TODO: width/height constants -->
+<canvas id="workspace" width="900" height="600"></canvas>
+<canvas id="preview" width="900" height="600"></canvas>
+<svg width="900" height="600"></svg>
+
+<script src="./lib/d3.v5.min.js"></script>
+<script src="./lib/ml5.min.js"></script>
+<script type="text/javascript" src="index.js"></script>
