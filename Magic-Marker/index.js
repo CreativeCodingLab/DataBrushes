@@ -34,6 +34,21 @@ var canvas = document.querySelector("#workspace"),
     preload_minard_cattle = preload_mc.getContext("2d")
 
 
+window.addEventListener('applybrush', () => {
+  if (pendingSave) {
+    let res = window.open() // chrome won't navigate directly to data URL, so we wrap it
+    res.document.body.innerHTML = `<img src="${canvas.toDataURL("image/png")}" >`
+    pendingSave = false
+  }
+})
+
+let pendingSave = false
+document.querySelector('#save').onclick = () => {
+  pendingSave = true
+  applyBrush() // will return before completing the onload chain, so we await an event.
+}
+
+
 var image = new Image;
 image.src = "glupi-default.jpg"
 image.onload = loadedImageFirst
@@ -82,13 +97,11 @@ function uploadImage() {
   image.onload = loadedImageFirst;
 }
 
-
 function loadedImageFirst() {
   // TODO: tune inference
   let scalefactor = image.width*image.height > 800*800 ? 3 : 1
 
   let w = image.width/scalefactor, h = image.height/scalefactor
-
   canvas.width = w;
   workspace.width = w;
   background.width = w;
@@ -136,14 +149,10 @@ function loadedImageFirst() {
   style6 = ml5.styleTransfer('../models/moma_glupi', image, loadModelMomaGlupi)
   style7 = ml5.styleTransfer('../models/minard_cattle', image, loadModelMinardCattle)
 
-  console.log('got style')
+  // console.log('got style')
   modelReady = false;
-                          // 0, 0, canvas.width, canvas.height);
-  // console.log('drawing image');
 
-  console.log('done with computing all brushes');
-
-
+  // console.log('done with computing all brushes');
   if (brush)
     brush.call(brushGen.move, null)
     brush = svg.append("g")
@@ -246,40 +255,26 @@ function showTransferMinardCattle(err, img) {
 
 
 function useBruises() {
-  //applyBrush();
   bgcontext.drawImage(preload_bruises.canvas, 0, 0);
 }
-
 function useHennessy() {
-  //applyBrush();
   bgcontext.drawImage(preload_hennessy_zoom.canvas, 0, 0);
 }
-
 function useImmigration() {
-  //applyBrush();
   bgcontext.drawImage(preload_minard_immigration.canvas, 0, 0);
 }
-
 function useFlatland() {
-  //applyBrush();
   bgcontext.drawImage(preload_tufte_flatland.canvas, 0, 0);
 }
-
 function useScrapbook1() {
-  //applyBrush();
   bgcontext.drawImage(preload_scrapbook1_glupi.canvas, 0, 0);
 }
-
 function useScrapbook2() {
-  //applyBrush();
   bgcontext.drawImage(preload_scrapbook2_glupi.canvas, 0, 0);
 }
-
 function useMoma() {
-  //applyBrush();
   bgcontext.drawImage(preload_moma_glupi.canvas, 0, 0);
 }
-
 function useCattle() {
   bgcontext.drawImage(preload_minard_cattle.canvas, 0, 0);
 }
@@ -294,8 +289,9 @@ function clearBrush() {
   //context.clearRect(0, 0, canvas.width, canvas.height);
   //context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-  if (style)
+  /* if (style) // was failing due to data === undefined, to no ill effect
     style.transfer(data, showTransferBG)
+  */
 }
 
 function applyBrush() {
@@ -304,6 +300,7 @@ function applyBrush() {
   transfer.src = data
   transfer.onload = pasteImage // await style
 }
+
 function pasteImage() {
   master.drawImage(this, 0, 0)
 
@@ -315,6 +312,8 @@ function pasteImage() {
 
 function pasteMask() {
   master.drawImage(this, 0, 0)
+  window.dispatchEvent(new CustomEvent('applybrush'))
+
   clearBrush()
 }
 
@@ -385,8 +384,6 @@ async function brushEnd() {
 
   brushX = x0, brushY = y0
   let data = master.getImageData(x0, y0, x1-x0, y1-y0)
-    // FIXME: Rectangular images are returned with correct data,
-    //        but transposed width and height. Cludged for now.
 
   // image.data is an array of integer triples
 
