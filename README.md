@@ -1,5 +1,5 @@
 # Data Brushes: Interactive Style Transfer for Data Art
-Brush-based interactive canvas for custom style transfer. We have two different modes of the application that can be loaded from each folder in this repository. Our style transfer applications use pre-trained models from ml5.js and brush interactions supported by D3 in novel ways, giving users a new way to creatively interact with images of their choice, and eliciting new thoughts on the process of art creation. The application is accessible at https://mahikadubey.github.io/Canvas-Style-Transfer/. Our paper is currently under review for the IEEE Vis Arts Program 2019. 
+Brush-based interactive canvas for custom style transfer. We have two different modes of the application that can be loaded from each folder in this repository. Our style transfer applications use pre-trained models from ml5.js and brush interactions supported by D3 in novel ways, giving users a new way to creatively interact with images of their choice, and eliciting new thoughts on the process of art creation. The application is accessible at https://mahikadubey.github.io/Canvas-Style-Transfer/. Our paper has been accepted at IEEE VIS Arts Program 2019 and will the presented at the conference in Vancouver (Oct 20-25, 2019). 
 
 Contact Information:  
 Mahika Dubey     
