@@ -7,7 +7,7 @@ The Magic Marker application allows brush interactions so that users can 'paint'
 Select a brush to switch to the relevant style. Rectangle shaped selections can be made on the canvas, and dragged around or reshaped as needed. When happy with the painted section, click the 'Apply Brush' button to fix the changes to the image. Then, a new brush may be selected, or a new section may be painted over with the existing brush. Use the 'Clear Brush' button to remove any un-applied 'paint.' Using 'content replacing' overwrites any previously styled content with the single selected style, while 'style layering' allows multiple styles to be applied onto the same area, successively styling and re-styling for creative outputs. 
 
 ### Results - Images and Video Demo   
-Below is a video/gif demonstrating usage of the magic marker implementation, as well as image results of other paintings created using the application.    
+Below is a video/gif demonstrating usage of the magic marker implementation, as well as image results of other paintings created using the application. Clicking on an image thumbnail prepares the associated style brush, which can be used on the main image through clicking and dragging. In order to apply changes use the 'Apply Brush' button before changing to a different brush.     
 
 ![](Results-Media/screenvideo-magic-marker.mov.gif)
 
