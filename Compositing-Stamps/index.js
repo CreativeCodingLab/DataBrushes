@@ -7,7 +7,7 @@ var canvas = document.querySelector("#workspace"),
     context = workspace.getContext("2d")
 
 var image = new Image;
-image.src = "cat-cute.jpg"
+image.src = "contrast.png"
 image.onload = loadedImage
 
 var svg = d3.select("svg");
